@@ -5,7 +5,22 @@ const query = gql`
     categories: [Category]!
     category(id: ID!): Category!
 
-    products: [Product]!
+    products(filter: JSONObj, orderBy: SortInput, priceRange: PriceRange, limit: Int): [Product]!
+  }
+
+  input PriceRange {
+    from: Float
+    to: Float
+  }
+
+  input SortInput {
+    full_name: Sort
+    price: Sort
+  }
+
+  enum Sort {
+    asc
+    desc
   }
 `;
 

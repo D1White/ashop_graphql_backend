@@ -1,14 +1,15 @@
-import { gql } from 'apollo-server-express';
+import { gql } from "apollo-server-express";
 
 export const productTypes = gql`
   type Product {
+    id: ID!
     name: String!
     full_name: String!
-    price: Int!
+    price: Float!
     photo_url: [URL!]!
-    category: Category!
+    category: MongoId!
     design: [Design!]!
-    info: String!
+    info: JSONObj!
     description: String!
     orderIndex: Int!
   }
