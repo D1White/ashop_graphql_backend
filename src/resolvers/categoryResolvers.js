@@ -1,4 +1,5 @@
 import { CategoryModel } from '../models/CategoryModel';
+import { HexColorCode } from '../scalars/HexColorCode'
 
 const categoryResolvers = {
   Query: {

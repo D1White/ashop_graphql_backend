@@ -14,7 +14,7 @@ const validate = (value) => {
   return value;
 };
 
-export const HexColorCode = new GraphQLScalarType({
+const HexColorCode = new GraphQLScalarType({
   name: 'HexColorCode',
   
   description: `A field whose value is a hex color code`,
@@ -37,3 +37,5 @@ export const HexColorCode = new GraphQLScalarType({
     return validate(ast.value);
   },
 });
+
+export default HexColorCode;

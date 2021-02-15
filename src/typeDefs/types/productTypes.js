@@ -1,10 +1,6 @@
 import { gql } from 'apollo-server-express';
 
 export const productTypes = gql`
-  type Query {
-    products: [Product]!
-  }
-
   type Product {
     name: String!
     full_name: String!
@@ -19,7 +15,7 @@ export const productTypes = gql`
 
   type Design {
     name: String!
-    color: String!
+    color: HexColorCode!
     quantity: Int!
     photo_url: String!
   }
