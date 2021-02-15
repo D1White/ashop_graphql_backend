@@ -5,7 +5,7 @@ export const productTypes = gql`
     name: String!
     full_name: String!
     price: Int!
-    photo_url: [String!]!
+    photo_url: [URL!]!
     category: Category!
     design: [Design!]!
     info: String!
@@ -17,6 +17,6 @@ export const productTypes = gql`
     name: String!
     color: HexColorCode!
     quantity: Int!
-    photo_url: String!
+    photo_url: URL!
   }
 `;
