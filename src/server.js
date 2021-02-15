@@ -7,23 +7,13 @@ import express from 'express';
 import { ApolloServer, gql } from 'apollo-server-express';
 import cors from 'cors';
 
+import { typeDefs } from './typeDefs';
+import { resolvers } from './resolvers';
+
 const app = express();
 
 app.use(cors());
 app.use(express.json());
-
-const typeDefs = gql`
-  type Query {
-    hello: String!
-  }
-`;
-
-const resolvers = {
-  Query: {
-    hello: () => 'hello'
-  }
-}
-
 
 const server = new ApolloServer({
   typeDefs,
