@@ -1,3 +1,5 @@
-import { categoryTypes } from './categoryTypes';
+import { query } from './query'
+import { categoryTypes, productTypes } from './types'
 
-export const typeDefs = [categoryTypes];
+
+export const typeDefs = [query, categoryTypes];
