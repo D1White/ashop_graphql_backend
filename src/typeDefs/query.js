@@ -2,10 +2,10 @@ import { gql } from 'apollo-server-express';
 
 const query = gql`
   type Query {
-    categories: [Category]!
+    categories: [Category!]!
     category(id: ID!): Category!
 
-    products(filter: JSONObj, orderBy: SortInput, priceRange: PriceRange, limit: Int): [Product]!
+    products(filter: JSONObj, orderBy: SortInput, priceRange: PriceRange, limit: Int): [Product!]!
   }
 
   input PriceRange {
@@ -19,8 +19,8 @@ const query = gql`
   }
 
   enum Sort {
-    asc
-    desc
+    ASC
+    DESC
   }
 `;
 

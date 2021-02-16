@@ -1,5 +1,4 @@
 import { CategoryModel } from '../models/CategoryModel';
-import { HexColorCode } from '../scalars/HexColorCode'
 
 const categoryResolvers = {
   Query: {
@@ -9,7 +8,10 @@ const categoryResolvers = {
     }
   },
   Mutation: {
-    createCategory: async(_, { name, full_name }) => {
+    category: () => ({}),
+  },
+  CategoryMutations: {
+    create: async(_, { name, full_name }) => {
       const category = await CategoryModel.create({
         name: name,
         full_name: full_name

@@ -13,21 +13,33 @@ const productResolvers = {
           key === "category"
         ) {
           filterQuery[key] = filter[key];
-        } else if (key === 'design') {
-          filterQuery['design.name'] = filter[key];
+        } else if (key === "design") {
+          filterQuery["design.name"] = filter[key];
         } else {
           filterQuery[`info.${key}`] = filter[key];
         }
       }
-      
+
       if (priceRange && priceRange.from >= 0 && priceRange.to) {
-        filterQuery['price'] = {
+        filterQuery["price"] = {
           $gte: priceRange.from,
           $lte: priceRange.to,
-        }
+        };
       }
 
-      return ProductModel.find(filterQuery, null, { sort: orderBy, limit: limit });
+      return ProductModel.find(filterQuery, null, {
+        sort: orderBy,
+        limit: limit,
+      });
+    },
+  },
+  Mutation: {
+    product: () => ({}),
+  },
+  ProductMutations: {
+    create: (_, arg) => {
+      // console.log(arg);
+      return arg.product
     },
   },
 };

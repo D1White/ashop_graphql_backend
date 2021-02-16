@@ -1,11 +1,11 @@
-import * as HexColorCodeScalar from './HexColorCode';
-import * as URLScalar from './URL';
-import * as JSONObjScalar from './JSONObj/JSONObj'
-import * as MongoIdScalar from './MongoId'
+import HexColorCodeScalar from './HexColorCode';
+import ImgURLScalar from './ImgURL';
+import JSONObjScalar from './JSONObj/JSONObj'
+import MongoIdScalar from './MongoId'
 
 export const scalars = {
   HexColorCode: HexColorCodeScalar,
-  URL: URLScalar,
+  ImgURL: ImgURLScalar,
   JSONObj: JSONObjScalar,
   MongoId: MongoIdScalar,
 }

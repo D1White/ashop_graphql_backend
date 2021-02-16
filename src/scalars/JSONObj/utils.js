@@ -1,3 +1,5 @@
+import { Kind } from 'graphql';
+
 export function identity(value) {
   return value;
 }
@@ -19,4 +21,25 @@ export function parseObject(ast, variables) {
   });
 
   return value;
+}
+
+export function parseLiteral(ast, variables) {
+  switch (ast.kind) {
+    case Kind.STRING:
+    case Kind.BOOLEAN:
+      return ast.value;
+    case Kind.INT:
+    case Kind.FLOAT:
+      return parseFloat(ast.value);
+    case Kind.OBJECT:
+      return parseObject(ast, variables);
+    case Kind.LIST:
+      return ast.values.map((n) => parseLiteral(n, variables));
+    case Kind.NULL:
+      return null;
+    case Kind.VARIABLE: {
+      const name = ast.name.value;
+      return variables ? variables[name] : undefined;
+    }
+  }
 }
