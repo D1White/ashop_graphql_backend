@@ -1,13 +1,13 @@
 import { Kind, GraphQLError, GraphQLScalarType } from 'graphql';
 
-const URL_REGEX = /^((https?|ftp|file):\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?\.(jpg|png|jpeg)$/;
+const URL_REGEXP = /^((https?|ftp|file):\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?\.(jpg|png|jpeg)$/;
 
 const validate = (value) => {
   if (typeof value !== 'string') {
     throw new TypeError(`Value is not string: ${value}`);
   }
 
-  if (!URL_REGEX.test(value)) {
+  if (!URL_REGEXP.test(value)) {
     throw new TypeError(`Value is not a valid img URL: ${value}`);
   }
 
@@ -18,7 +18,7 @@ const ImgURL =  new GraphQLScalarType({
   name: 'URL',
 
   description:
-    'A field whose value conforms image URL',
+    `A field whose value conforms image URL. RegExp: ^((https?|ftp|file):\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?\.(jpg|png|jpeg)$`,
 
   serialize(value) {
     return validate(value);

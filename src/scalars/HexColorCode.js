@@ -17,7 +17,7 @@ const validate = (value) => {
 const HexColorCode = new GraphQLScalarType({
   name: 'HexColorCode',
   
-  description: `A field whose value is a hex color code`,
+  description: `A field whose value is a hex color code. RegExp: ^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3}|[A-Fa-f0-9]{8})$`,
 
   serialize(value) {
     return validate(value);
