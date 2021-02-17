@@ -1,7 +1,7 @@
 import HexColorCodeScalar from './HexColorCode';
 import ImgURLScalar from './ImgURL';
-import JSONObjScalar from './JSONObj/JSONObj'
-import MongoIdScalar from './MongoId'
+import JSONObjScalar from './JSONObj/JSONObj';
+import MongoIdScalar from './MongoId';
 
 export const scalars = {
   HexColorCode: HexColorCodeScalar,

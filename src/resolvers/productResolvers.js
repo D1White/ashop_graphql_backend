@@ -1,4 +1,5 @@
 import { ProductModel } from "../models/ProductModel";
+import { CategoryModel } from "../models/CategoryModel";
 
 const productResolvers = {
   Query: {
@@ -37,8 +38,16 @@ const productResolvers = {
     product: () => ({}),
   },
   ProductMutations: {
-    create: (_, arg) => {
+    create: async(_, arg) => {
       // console.log(arg);
+      if (arg.product.category) {
+        const category = await CategoryModel.findById(arg.product.category).exec();
+
+        if (!category) {
+          throw new TypeError(`Сategory with such id does not exist: ${arg.product.category}`);
+        }
+      }
+
       return arg.product
     },
   },
