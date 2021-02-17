@@ -33,22 +33,33 @@ const productResolvers = {
         limit: limit,
       });
     },
+    product: (_, { id }) => {
+      return ProductModel.findById(id)
+    }
   },
   Mutation: {
     product: () => ({}),
   },
   ProductMutations: {
-    create: async(_, arg) => {
+    create: async(_, { product }) => {
       // console.log(arg);
-      if (arg.product.category) {
-        const category = await CategoryModel.findById(arg.product.category).exec();
+      if (product.category) {
+        const category = await CategoryModel.findById(product.category).exec();
 
         if (!category) {
-          throw new TypeError(`Сategory with such id does not exist: ${arg.product.category}`);
+          throw new TypeError(`Сategory with such id does not exist: ${product.category}`);
         }
       }
 
-      return arg.product
+      const info = {...product.info}
+
+      const data = {...product, info}
+
+      console.log(data);
+
+      const newProduct = await ProductModel.create(data);
+
+      return newProduct;
     },
   },
 };

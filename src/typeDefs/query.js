@@ -6,6 +6,7 @@ const query = gql`
     category(id: ID!): Category!
 
     products(filter: JSONObj, orderBy: SortInput, priceRange: PriceRange, limit: Int): [Product!]!
+    product(id: MongoId!): Product!
   }
 
   input PriceRange {
