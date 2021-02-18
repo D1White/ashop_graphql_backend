@@ -5,7 +5,7 @@ const query = gql`
     categories: [Category!]!
     category(id: ID!): Category!
 
-    products(filter: JSONObj, orderBy: SortInput, priceRange: PriceRange, limit: Int): [Product!]!
+    products(filter: JSONObj, orderBy: Sort, priceRange: PriceRange, pagination: PaginationInput, limit: Int): ProductPagination
     product(id: MongoId!): Product!
   }
 
@@ -14,14 +14,17 @@ const query = gql`
     to: Float
   }
 
-  input SortInput {
-    full_name: Sort
-    price: Sort
+  enum Sort {
+    FULL_NAME_ASC
+    FULL_NAME_DESC
+    PRICE_ACS
+    PRICE_DESC
+    POPULARITY
   }
 
-  enum Sort {
-    ASC
-    DESC
+  input PaginationInput {
+    page: Int! = 1
+    perPage: Int! = 15
   }
 `;
 

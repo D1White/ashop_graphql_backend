@@ -3,7 +3,16 @@ import { CategoryModel } from "../models/CategoryModel";
 
 const productResolvers = {
   Query: {
-    products: (_, { filter, orderBy, priceRange, limit }) => {
+    products: async (_, { filter, orderBy, priceRange, limit, pagination }) => {
+      const ORDER_BY_FILTER_MAP = {
+        'FULL_NAME_ASC': {full_name: 'asc'},
+        'FULL_NAME_DESC': {full_name: 'desc'},
+        'PRICE_ACS': {price: 'asc'},
+        'PRICE_DESC': {price: 'desc'},
+        'POPULARITY': {orderIndex: 'desc'},
+     }
+     const orderByType = ORDER_BY_FILTER_MAP[orderBy]
+
       let filterQuery = {};
 
       for (const key in filter) {
@@ -28,10 +37,30 @@ const productResolvers = {
         };
       }
 
-      return ProductModel.find(filterQuery, null, {
-        sort: orderBy,
-        limit: limit,
-      });
+      // const products = await ProductModel.find(filterQuery, null, {
+      //   sort: orderByType,
+      //   limit: limit,
+      // }).exec();
+
+      let options = {
+        sort: orderByType,
+      }
+
+      if (pagination) {
+        options.page = pagination.page;
+        options.limit = pagination.perPage
+      }
+
+      const productPagination = await ProductModel.paginate(filterQuery, options);
+
+      const products = productPagination.docs;
+      delete productPagination.docs
+
+
+      return {
+        items: products,
+        pageInfo: productPagination
+      };
     },
     product: (_, { id }) => {
       return ProductModel.findById(id)
