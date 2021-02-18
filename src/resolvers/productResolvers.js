@@ -71,7 +71,6 @@ const productResolvers = {
   },
   ProductMutations: {
     create: async(_, { product }) => {
-      // console.log(arg);
       if (product.category) {
         const category = await CategoryModel.findById(product.category).exec();
 
@@ -90,6 +89,46 @@ const productResolvers = {
 
       return newProduct;
     },
+    update: async(_, { id, product }) => {
+      if (product.category) {
+        const category = await CategoryModel.findById(product.category).exec();
+
+        if (!category) {
+          throw new TypeError(`Сategory with such id does not exist: ${product.category}`);
+        }
+      }
+
+      let data = {...product}
+
+      if (product.info) {
+        const info = {...product.info}
+        data = {...product, info}
+      }
+
+      console.log(data);
+
+      await ProductModel.updateOne(
+        { _id: id },
+        { $set: data}
+      );
+
+      const updateProduct = await ProductModel.findById(id).exec();
+
+      console.log(updateProduct);
+
+      return {
+        product: updateProduct,
+        status: '200',
+      };
+    },
+    delete: (_, { id }) => {
+      ProductModel.findByIdAndDelete(id, (err) => {
+        if (err) {
+          throw new Error('Error while deleting');
+        }
+      });
+      return '204';
+    }
   },
 };
 

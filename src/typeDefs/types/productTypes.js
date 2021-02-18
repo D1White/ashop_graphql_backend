@@ -22,7 +22,14 @@ export const productTypes = gql`
   }
 
   type ProductMutations {
-    create(product: ProductInput!): Product
+    create(product: CreateProductInput!): Product!
+    update(id: MongoId!, product: UpdateProductInput!): ProductUpdate
+    delete(id: MongoId!): String!
+  }
+
+  type ProductUpdate {
+    product: Product
+    status: String
   }
 
   type ProductPagination {
@@ -44,22 +51,32 @@ export const productTypes = gql`
     nextPage: Int
   }
 
-  input ProductInput {
-    "Name"
+  input CreateProductInput {
     name: String!
     full_name: String!
     price: Float!
     photo_url: [ImgURL!]!
     category: MongoId!
-    design: [DesignInput!]!
+    design: [CreateDesignInput!]!
     info: JSONObj!
     description: String!
   }
 
-  input DesignInput {
+  input CreateDesignInput {
     name: String!
     color: HexColorCode!
     quantity: Int!
     photo_url: ImgURL!
+  }
+
+  input UpdateProductInput {
+    name: String
+    full_name: String
+    price: Float
+    photo_url: [ImgURL]
+    category: MongoId
+    design: [CreateDesignInput!]
+    info: JSONObj
+    description: String
   }
 `;

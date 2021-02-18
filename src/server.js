@@ -4,7 +4,7 @@ dotenv.config();
 import './core/db'
 
 import express from 'express';
-import { ApolloServer, gql } from 'apollo-server-express';
+import { ApolloServer } from 'apollo-server-express';
 import cors from 'cors';
 
 import { typeDefs } from './typeDefs';
