@@ -1,7 +1,7 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 mongoose.connect(
-  "mongodb+srv://dWhite:MVS6YUxEY0ns0cS2@web-store.wfk81.mongodb.net/web_store",
+  process.env.MONGODB_URL,
   {
     useNewUrlParser: true,
     useCreateIndex: true,
@@ -15,6 +15,6 @@ mongoose.connect(
 
 const db = mongoose.connection;
 
-db.on('error', console.error.bind(console, 'connection error:'));
+db.on("error", console.error.bind(console, "connection error:"));
 
-export {db, mongoose};
+export { db, mongoose };

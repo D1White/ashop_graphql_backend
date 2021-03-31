@@ -1,12 +1,20 @@
-import { gql } from 'apollo-server-express';
+import { gql } from 'apollo-server-express'
 
 const query = gql`
   type Query {
     categories: [Category!]!
     category(id: ID!): Category!
 
-    products(filter: JSONObj, orderBy: Sort, priceRange: PriceRange, pagination: PaginationInput, limit: Int): ProductPagination
+    products(
+      filter: JSONObj
+      orderBy: Sort
+      priceRange: PriceRange
+      pagination: PaginationInput
+      limit: Int
+    ): ProductPagination
     product(id: MongoId!): Product!
+
+    promo: Promo
   }
 
   input PriceRange {
@@ -26,6 +34,6 @@ const query = gql`
     page: Int! = 1
     perPage: Int! = 15
   }
-`;
+`
 
-export default query;
+export default query
